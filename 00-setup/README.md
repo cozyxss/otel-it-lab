@@ -31,8 +31,8 @@ where every lab in this repo runs.
    if a lab breaks something.
 6. Installed Cisco Packet Tracer and Wireshark (with Npcap) on the host.
 
-![DC01 desktop](screenshots/00-dc01.png)
-![Reception desktop](screenshots/00-pc01.png)
+![DC01 desktop](screenshots/01-dc01.png)
+![Reception desktop](screenshots/02-pc01.png)
 
 ## What I learned
 - **Desktop Experience vs Server Core:** Server Core has no GUI, uses fewer

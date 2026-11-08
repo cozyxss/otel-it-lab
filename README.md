@@ -14,7 +14,7 @@ the systems a hotel IT team manages every day.
 ## Labs
 | # | Lab | Status |
 |---|-----|--------|
-| 0 | Lab environment setup | ✅ Done |
+| 0 | [Lab environment setup](00-setup/README.md) | ✅ Done |
 | 1 | Active Directory, DNS, DHCP, department OUs | ⏳ |
 | 2 | Group Policy for front desk PCs | ⏳ |
 | 3 | PowerShell: seasonal staff automation | ⏳ |

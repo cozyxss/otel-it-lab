@@ -18,7 +18,7 @@ the systems a hotel IT team manages every day.
 | # | Lab | Status |
 |---|-----|--------|
 | 0 | [Lab environment setup](00-setup/README.md) | ✅ Done |
-| 1 | [Active Directory, DNS, DHCP, department OUs](01-active-directory/README.md) | 🔄 Part 1 done |
+| 1 | [Active Directory, DNS, DHCP, department OUs](01-active-directory/README.md) | ✅ Done |
 | 2 | Group Policy for front desk PCs | ⏳ |
 | 3 | PowerShell: seasonal staff automation | ⏳ |
 | 4 | Hotel network: VLANs, guest Wi-Fi, ACL | ⏳ |
@@ -27,3 +27,5 @@ the systems a hotel IT team manages every day.
 ## Highlights so far
 - Department-based Active Directory structure for a hotel (Front Office, Housekeeping, F&B, Accounting, Engineering, IT)
 - PowerShell scripts that are safe to re-run, creating OUs, groups and staff accounts from CSV
+- Front desk PC joined to the domain, DHCP for the hotel LAN
+- Department file shares with NTFS permissions and Access-Based Enumeration

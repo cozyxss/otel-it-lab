@@ -12,6 +12,9 @@ the systems a hotel IT team manages every day.
 - Cisco Packet Tracer, Wireshark
 
 ## Labs
+
+> 🗺️ Want to build it yourself? Follow the step-by-step [ROADMAP](ROADMAP.md).
+
 | # | Lab | Status |
 |---|-----|--------|
 | 0 | [Lab environment setup](00-setup/README.md) | ✅ Done |

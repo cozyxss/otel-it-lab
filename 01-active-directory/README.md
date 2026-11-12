@@ -69,12 +69,18 @@ Created with [`New-HotelOUStructure.ps1`](scripts/New-HotelOUStructure.ps1).
 - The DHCP server has to be **authorized in Active Directory** before it hands out any addresses.
   This stops a rogue DHCP server on the network from giving clients wrong settings.
 
+![DHCP scope](screenshots/05-dhcp-scope.png)
+![Client got an IP from DHCP](screenshots/06-client-dhcp.png)
+
 ### Joining the front desk PC
 1. FRONTDESK-PC01 got its IP from DHCP (`ipconfig /all`) and could resolve `dc01.kayaresort.local`.
 2. Renamed it to `FRONTDESK-PC01` and joined `kayaresort.local` with a domain admin account.
 3. Moved the computer object from the default `Computers` container to **`Front Office/Computers`**.
    The default container is not an OU, so Group Policy can't be linked to it.
 4. Logged in as a receptionist (`KAYARESORT\ayse.yilmaz`) and changed the temporary password at first logon.
+
+![Computer in Front Office OU](screenshots/07-computer-ou.png)
+![Logged in as a domain user](screenshots/08-domain-login.png)
 
 ### Department file shares
 Created with [`New-HotelShares.ps1`](scripts/New-HotelShares.ps1).
@@ -89,7 +95,9 @@ Created with [`New-HotelShares.ps1`](scripts/New-HotelShares.ps1).
 **Tested as Ayse (Front Office):**
 - `\\DC01\Shares` shows only `FrontOffice`
 - Creating a file in `FrontOffice` works
-- Typing `\\DC01\Shares\Accounting` directly → *access denied*
+- Typing `\\DC01\Shares\Accounting` directly → *Windows cannot access*
+
+![Accounting is blocked](screenshots/09-accounting-denied.png)
 
 ### Helpdesk tasks
 - **Account lockout policy:** the default domain policy never locks accounts.
@@ -112,16 +120,8 @@ Created with [`New-HotelShares.ps1`](scripts/New-HotelShares.ps1).
 | **Lesson** | Being in the right OU decides which policies you get, not what you can access. Group membership is read at logon, so changes need a sign-out. |
 
 ## What I learned
-- **OUs vs groups:** OUs organise objects and are where Group Policy is applied;
-  security groups are used to grant permissions. A user lives in one OU but can be in many groups.
-- **Scripts should be safe to re-run:** all scripts check if an object exists
-  before creating it, so running them twice changes nothing.
-- **Never mix create and delete:** cleanup was done once by hand; setup scripts only create.
-- **Protected from accidental deletion:** AD protects new OUs by default, because deleting an OU deletes everything inside it.
-- **Naming:** English names and no Turkish characters in account names avoid problems in scripts,
-  email addresses and other systems. Computer names are limited to 15 characters.
-- **Password policy:** the default domain policy requires complexity, so weak initial passwords are rejected.
-- **DHCP must be authorized in AD** before it serves clients. `169.254.x.x` on a client means it never reached a DHCP server.
-- **Domain join depends on DNS:** the client finds the domain controller through DNS records.
-- **Share vs NTFS permissions:** both apply and the most restrictive wins.
-- **Disable, don't delete** leavers' accounts: deleted accounts can't be restored with their permissions and history.
+- **OU vs group:** the OU decides which policies you get, the group decides what you can access.
+- **DNS is everything in AD:** clients find the domain controller through DNS, so a domain join fails without it.
+- **DHCP must be authorized in AD** before it hands out addresses. A `169.254.x.x` address means the client never reached it.
+- **Share + NTFS permissions:** both apply and the stricter one wins. Keep the share open, control access with NTFS.
+- **Disable, don't delete** accounts of staff who leave.

@@ -1,0 +1,33 @@
+! SW-ROOMS (Cisco 2960) – cameras, room TVs, guest Wi-Fi
+enable
+configure terminal
+hostname SW-ROOMS
+vlan 10
+ name STAFF
+vlan 20
+ name POS
+vlan 30
+ name CCTV
+vlan 40
+ name IPTV
+vlan 50
+ name GUEST
+!
+interface FastEthernet0/1
+ description CCTV-NVR
+ switchport mode access
+ switchport access vlan 30
+interface FastEthernet0/2
+ description TV-101
+ switchport mode access
+ switchport access vlan 40
+interface FastEthernet0/3
+ description GUEST-AP
+ switchport mode access
+ switchport access vlan 50
+interface FastEthernet0/24
+ description Trunk to SW-CORE
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40,50
+end
+write memory

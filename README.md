@@ -3,7 +3,7 @@
 A virtual IT infrastructure for a fictional resort hotel, built to practise
 the systems a hotel IT team manages every day.
 
-> Status: in progress (started November 2026)
+> Status: complete (November 2026)
 
 ## Lab environment
 - VirtualBox on Windows (32 GB RAM host)
@@ -19,13 +19,15 @@ the systems a hotel IT team manages every day.
 |---|-----|--------|
 | 0 | [Lab environment setup](00-setup/README.md) | ✅ Done |
 | 1 | [Active Directory, DNS, DHCP, department OUs](01-active-directory/README.md) | ✅ Done |
-| 2 | Group Policy for front desk PCs | ⏳ |
-| 3 | PowerShell: seasonal staff automation | ⏳ |
-| 4 | Hotel network: VLANs, guest Wi-Fi, ACL | ⏳ |
-| 5 | Troubleshooting: Wireshark + helpdesk tickets | ⏳ |
+| 2 | [Group Policy for front desk PCs](02-group-policy/README.md) | ✅ Done |
+| 3 | [PowerShell: seasonal staff automation](03-powershell-automation/README.md) | ✅ Done |
+| 4 | [Hotel network: VLANs, guest Wi-Fi, ACL](04-hotel-network/README.md) | ✅ Done |
+| 5 | [Troubleshooting: Wireshark + helpdesk tickets](05-troubleshooting/README.md) | ✅ Done |
 
-## Highlights so far
-- Department-based Active Directory structure for a hotel (Front Office, Housekeeping, F&B, Accounting, Engineering, IT)
-- PowerShell scripts that are safe to re-run, creating OUs, groups and staff accounts from CSV
-- Front desk PC joined to the domain, DHCP for the hotel LAN
+## Highlights
+- Department-based Active Directory for a hotel, with a domain-joined front desk PC and DHCP
 - Department file shares with NTFS permissions and Access-Based Enumeration
+- Group Policy that locks down shared front desk PCs (screen lock, USB block, loopback)
+- PowerShell automation for the full seasonal staff lifecycle, from hiring to offboarding with a report
+- Hotel network with separate VLANs for staff, POS, CCTV, IPTV and guest Wi-Fi, isolated with ACLs (PCI DSS)
+- A real troubleshooting case documented step by step

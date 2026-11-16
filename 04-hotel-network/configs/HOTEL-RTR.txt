@@ -1,0 +1,78 @@
+! HOTEL-RTR (Cisco 2911) – router-on-a-stick, DHCP per VLAN, ACLs
+enable
+configure terminal
+hostname HOTEL-RTR
+!
+interface GigabitEthernet0/0
+ description Trunk to SW-CORE
+ no shutdown
+!
+interface GigabitEthernet0/0.10
+ description STAFF
+ encapsulation dot1Q 10
+ ip address 192.168.10.1 255.255.255.0
+interface GigabitEthernet0/0.20
+ description POS
+ encapsulation dot1Q 20
+ ip address 192.168.20.1 255.255.255.0
+interface GigabitEthernet0/0.30
+ description CCTV
+ encapsulation dot1Q 30
+ ip address 192.168.30.1 255.255.255.0
+interface GigabitEthernet0/0.40
+ description IPTV
+ encapsulation dot1Q 40
+ ip address 192.168.40.1 255.255.255.0
+interface GigabitEthernet0/0.50
+ description GUEST-WIFI
+ encapsulation dot1Q 50
+ ip address 192.168.50.1 255.255.255.0
+!
+! DHCP: first 20 addresses of each VLAN are kept for fixed-IP devices
+ip dhcp excluded-address 192.168.10.1 192.168.10.20
+ip dhcp excluded-address 192.168.20.1 192.168.20.20
+ip dhcp excluded-address 192.168.30.1 192.168.30.20
+ip dhcp excluded-address 192.168.40.1 192.168.40.20
+ip dhcp excluded-address 192.168.50.1 192.168.50.20
+!
+ip dhcp pool STAFF
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ dns-server 192.168.10.10
+ip dhcp pool POS
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.1
+ dns-server 8.8.8.8
+ip dhcp pool CCTV
+ network 192.168.30.0 255.255.255.0
+ default-router 192.168.30.1
+ dns-server 8.8.8.8
+ip dhcp pool IPTV
+ network 192.168.40.0 255.255.255.0
+ default-router 192.168.40.1
+ dns-server 8.8.8.8
+ip dhcp pool GUEST
+ network 192.168.50.0 255.255.255.0
+ default-router 192.168.50.1
+ dns-server 8.8.8.8
+!
+! Guests: DHCP allowed, every internal network blocked, internet allowed
+ip access-list extended GUEST-IN
+ permit udp any any eq bootps
+ deny ip 192.168.50.0 0.0.0.255 192.168.0.0 0.0.255.255
+ permit ip any any
+!
+! POS: can't talk to CCTV, IPTV or guests
+ip access-list extended POS-IN
+ permit udp any any eq bootps
+ deny ip 192.168.20.0 0.0.0.255 192.168.30.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 192.168.40.0 0.0.0.255
+ deny ip 192.168.20.0 0.0.0.255 192.168.50.0 0.0.0.255
+ permit ip any any
+!
+interface GigabitEthernet0/0.50
+ ip access-group GUEST-IN in
+interface GigabitEthernet0/0.20
+ ip access-group POS-IN in
+end
+write memory

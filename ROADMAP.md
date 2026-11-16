@@ -191,7 +191,7 @@ Goal: every system gets its own network, and guests can never reach the payment 
 | 40 | IPTV | 192.168.40.0/24 | Room TVs |
 | 50 | Guest Wi-Fi | 192.168.50.0/24 | Guest phones and laptops |
 
-1. Topology: 1 router (2911), 1 core switch (2960), 2 floor switches, 1 access point, 1–2 devices per VLAN.
+1. Topology: 1 router (2901 or 2911), 1 core switch (2960), 2 floor switches, 1 access point, 1–2 devices per VLAN.
 2. Create the VLANs, assign access ports, make switch-to-switch links **trunks**.
 3. **Router-on-a-stick:** one sub-interface per VLAN (`g0/0.10`, `g0/0.20`, ...) with `encapsulation dot1Q`.
 4. A **DHCP pool** per VLAN on the router.

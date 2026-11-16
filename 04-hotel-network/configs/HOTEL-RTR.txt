@@ -1,4 +1,4 @@
-! HOTEL-RTR (Cisco 2911) – router-on-a-stick, DHCP per VLAN, ACLs
+! HOTEL-RTR (Cisco 2901) – router-on-a-stick, DHCP per VLAN, ACLs
 enable
 configure terminal
 hostname HOTEL-RTR

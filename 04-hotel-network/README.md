@@ -4,7 +4,7 @@ Goal: give every hotel system its own network, and make sure guests can never re
 
 ## Topology
 ```
-              HOTEL-RTR  (2911, router-on-a-stick)
+              HOTEL-RTR  (2901, router-on-a-stick)
                   │ trunk
               SW-CORE    (2960)
            trunk /      \ trunk
@@ -13,6 +13,8 @@ Goal: give every hotel system its own network, and make sure guests can never re
  FRONTDESK   POS-01  CCTV  TV-101  GUEST-AP
   (VLAN 10) (VLAN 20) (30)  (40)    (50)
 ```
+
+![Topology in Packet Tracer](screenshots/01-topology.png)
 
 ## VLANs
 | VLAN | Name | Network | Gateway | Devices |
